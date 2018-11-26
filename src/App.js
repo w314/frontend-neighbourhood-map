@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     locations : null,
     cityList : null,
-    activeCity : null,
+    activeCity : 'all',
     google : null,
     map : null,
   }
