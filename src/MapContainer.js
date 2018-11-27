@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
+let markers = null;
+
 class MapContainer extends Component {
 
 	state = {
 		google : null,
 		map : null,
 		infoWindow : null,
+		markers : null,
+		bounds : null,
 	}
 
 
@@ -61,15 +65,11 @@ class MapContainer extends Component {
   	const google = this.state.google;
   	const map = this.state.map;
   	const locations = this.props.locations;
-  	const activeCity = this.props.activeCity;
 
   	//creating markers and set bounds based on locations
   	if(google && map && locations) {
 	  	const bounds = new google.maps.LatLngBounds();
-	  	locations.forEach((location) => {	
-	  		//include location if all locations are needed
-	  		//or if the city of the locations === activeCity
-	  		if( activeCity === 'all' || location.location.city === activeCity ) {
+	  	const markers =  locations.map((location) => {	
 		  		const marker = new google.maps.Marker({
 		  			map: map,
 		  			position: { 
@@ -87,12 +87,41 @@ class MapContainer extends Component {
 		  		// marker.addListener('click', () => onMarkerClick(marker));
 		      bounds.extend(marker.position);
 		      // console.log(marker);
+			     return marker;
 		     }
-	  	})
+	  	);
 
 	  	//add bounds to map
 	  	map.fitBounds(bounds)
+	  	this.setState({ bounds, markers });
+	  	// this.setState({ markers });
   	}
+ 	}
+
+ 	updateMarkers() {
+ 		console.log('updating markers');
+ 		const map = this.state.map;
+ 		const activeCity = this.props.activeCity;
+ 		console.log(this.state.markers)
+ 		console.log(typeof this.state.markers[0])
+ 		const updatedMarkers = this.state.markers.slice();
+ 		console.log(updatedMarkers);
+ 		console.log(activeCity);
+ 		updatedMarkers.forEach((marker) => {
+			const newMap = ( activeCity === 'all' || marker.city === activeCity ) ? map : null;
+			marker.setMap(newMap);
+			// // console.log(marker.city);
+			// console.log(marker.visible);
+			// console.log(activeCity === 'all' || marker.city === activeCity)
+			// marker.visible = ( activeCity === 'all' || marker.city === activeCity ) ? true : false;
+			// console.log(marker.visible);
+ 		});
+ 		console.log(updatedMarkers);
+ 		// this.setState({ markers }, () => {console.log(this.state.markers);});
+ 		// this.setState((state) => {
+
+ 		// })
+ 		console.log(this.state.markers);
  	}
 
  	updateInfoWindow(marker) {
@@ -133,9 +162,18 @@ class MapContainer extends Component {
 		this.createMarkers();
  	}
 
+	// componentDidUpdate(prevProps) {
+	// 	if( this.props !== prevProps ) {
+	// 		this.createMarkers();
+	// 	}
+	// }
+
 	componentDidUpdate(prevProps) {
-		if( this.props !== prevProps ) {
+		if( this.props.locations !== prevProps.locations ) {
 			this.createMarkers();
+		} else if( this.props.activeCity !== prevProps.activeCity ) {
+			console.log('active City change');
+			this.updateMarkers();
 		}
 	}
 
