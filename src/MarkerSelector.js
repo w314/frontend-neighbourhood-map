@@ -8,7 +8,7 @@ class MarkerSelector extends Component {
 	createCityList() {
 	  // let cityList = [];
 	  if(this.props.locations) {
-		  console.log(this.props);
+		  // console.log(this.props);
 		  const locations = this.props.locations;
 
 		  //create a list of the different cities involved
@@ -21,9 +21,9 @@ class MarkerSelector extends Component {
 
 		  cityList.sort();
 		  this.setState({ cityList }, () => {
-		    console.log('cityList set');
-		    console.log(this.state);
-		    const state = this.state;
+		    // console.log('cityList set');
+		    // console.log(this.state);
+		    // const state = this.state;
 		    // this.setState({state}, () => {
 		    	// console.log('state reset');
 		    	// this.props.onActiveCityChange('all');
@@ -44,14 +44,24 @@ class MarkerSelector extends Component {
 	}
 
 	render() {
-		console.log('rendering MarkerSelector');
-		console.log(this.props);
+		// console.log('rendering MarkerSelector');
+		// console.log(this.props);
 
 		// if(this.props.loaded) {
+		const activeCity = this.props.activeCity;
+		let locations = this.props.locations;
+		if (locations && activeCity !== 'all') {
+			locations = locations.filter((location) => location.location.city === activeCity);
+		}
+
 		return (
 			<div className="marker-selector">
 				<div className="options">
-					<select id="chosen-city" defaultValue="all">
+					<select
+						id = "chosen-city"
+						defaultValue = "all"
+						onChange = { (event) => this.props.onActiveCityChange(event.target.value) }
+					>
 						<option value='all'>All</option>
 						{ 
 							cityList.map((city) => (
@@ -66,7 +76,7 @@ class MarkerSelector extends Component {
 				<div className="markers-shown">
 					<ul id="marker-list">
 						{
-							this.props.locations && this.props.locations.map((location) => (
+							locations && locations.map((location) => (
 								<li
 									key = { location.id }
 								>{ location.name }</li>

@@ -32,7 +32,7 @@ class MapContainer extends Component {
 		  		// marker.addListener('click', () => onMarkerClick(marker, largeInfowindow));
 		  		// marker.addListener('click', () => onMarkerClick(marker));
 		      bounds.extend(marker.position);
-		      console.log(marker);
+		      // console.log(marker);
 		     }
 	  	})
 
