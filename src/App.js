@@ -9,15 +9,12 @@ class App extends Component {
     locations : null,
     cityList : null,
     activeCity : 'all',
-    google : null,
-    map : null,
   }
 
 
   //fetching locations from foursquare api 
   //and updating locations in the state
   getLocations = () => {
-    // console.log('in getLocations');
     const clientId = 'I3YREXLTGMASOVK5ZPWCM0GCQLJ3H1LND3U0WVDB4JNCFN13';
     const clientSecret = '4W4E3FMMWPNYQYVQR1EJXFNNOBQL5BLMAMG11DMIDN1PNQGM';
     const query = 'park';
@@ -29,63 +26,11 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         locations = response.response.venues;
-        this.setState({locations}, () => {
-          // console.log('locations state changed');
-        })
-      })
-      .then(() => {
-        // console.log('locations are set');
-        // console.log(this.state);
-        // createMarkers();
-        // this.createCityList();
+        this.setState({locations});
       })
       .catch(function(error) {
         console.log(error);
       });
-  }
-
-  //adds script tag importing google maps api
-  //sets updateGoogle as callback function
-  getGoogleMaps() {
-    // console.log(this.state);
-    window.myFunction = this.updateGoogle.bind(this);
-    const script = document.createElement("script");
-    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=myFunction`;
-    script.async = true;
-    // console.log(script);
-    document.body.appendChild(script);
-  }
-
-
-  //callback function for google map api to call
-  //updates google in state 
-  //calls create map function
-  updateGoogle = () => {
-    delete window.myFunction;
-    this.setState({google : window.google},() => {
-      // console.log('state after setting google');
-      // console.log(this.state);
-      this.createMap();
-    });
-  }
-
-  //use google api to create map
-  //updates map in state
-  //calls create marker function
-  createMap() {
-    const mapElement = document.getElementById('map');
-    // console.log(mapElement);
-    const initialCenter = { lat: 20.7413449, lng: 73.9980244 };
-    const map = new this.state.google.maps.Map(
-      mapElement,
-      {
-        center : initialCenter,
-        zoom : 13
-      }
-    );
-    this.setState({map},() => {
-    });
   }
 
   updateActiveCity = (city) => {
@@ -95,44 +40,29 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // console.log('in onComponentWillMound');
     this.getLocations();
-    this.getGoogleMaps();
   }
 
 
   render() {
-    // if(this.state.locations) {
-      // console.log('app rendering');
-      // if(this.state.map && this.state.cityList) {
-        return (
-          <div className="App">
-            <h1>Frontend Neighbourhood Map</h1>
-            <div className="container">
-              <MarkerSelector
-                locations = { this.state.locations }
-                activeCity = { this.state.activeCity }
-                onActiveCityChange = { this.updateActiveCity }
-              />
-              <MapContainer
-                locations = { this.state.locations }
-                activeCity = { this.state.activeCity }
-                google = { this.state.google }
-                map = { this.state.map }
-              />
-            </div>
-          </div>
-        );        
-      // } else {
-      //   return (
-      //     <div className="App">
-      //       <p>Loading...</p>
-      //     </div>
-      //   );
-      // }
+    return (
+      <div className="App">
+        <h1>Frontend Neighbourhood Map</h1>
+        <div className="container">
+          <MarkerSelector
+            locations = { this.state.locations }
+            activeCity = { this.state.activeCity }
+            onActiveCityChange = { this.updateActiveCity }
+          />
+          <MapContainer
+            locations = { this.state.locations }
+            activeCity = { this.state.activeCity }
+          />
+        </div>
+      </div>
+    );        
+  }
 
-    }
-  // }
 }
 
 export default App;
