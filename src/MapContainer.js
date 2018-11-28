@@ -58,6 +58,9 @@ class MapContainer extends Component {
 	    // 	map : this.state.map,
 	    // 	content : 'elsoszia',
 	    // });
+	    infoWindow.addListener('closeclick', () => {
+	    	this.closeInfoWindow()
+	    })
 	    this.setState({ infoWindow });
     });
   }
@@ -123,8 +126,16 @@ class MapContainer extends Component {
  	}
 
 
- 	updateActiveLocation() {
+ 	// updateActiveLocation() {
 
+ 	// }
+
+ 	closeInfoWindow() {
+ 		console.log('closing infoWindow');
+ 		const infoWindow = this.state.infoWindow;
+ 		infoWindow.marker = null;
+ 		this.setState({ infoWindow });
+ 		this.props.onActiveLocationChange(null)
  	}
 
  	updateInfoWindow(marker) {
