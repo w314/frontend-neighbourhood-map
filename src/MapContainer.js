@@ -138,6 +138,7 @@ class MapContainer extends Component {
  		this.props.onActiveLocationChange(null)
  	}
 
+
  	updateInfoWindow(marker) {
  		console.log('updating infoWindow');
  		console.log(marker);
@@ -177,6 +178,12 @@ class MapContainer extends Component {
 		} else if( this.props.activeCity !== prevProps.activeCity ) {
 			// console.log('active City change');
 			this.updateMarkers();
+		} else if( this.props.activeLocation !== prevProps.activeLocation ) {
+			const activeMarker = this.state.markers.filter((marker) => marker.id === this.props.activeLocation )[0];
+			console.log('updateing active marker');
+			console.log(this.props.activeLocation);
+			console.log(activeMarker);
+			this.updateInfoWindow(activeMarker);
 		}
 	}
 

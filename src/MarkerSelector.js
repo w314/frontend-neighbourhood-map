@@ -33,6 +33,7 @@ class MarkerSelector extends Component {
 	  // console.log(cityList);
 	}
 
+
 	componentDidMount() {
 		this.createCityList();
 	}
@@ -79,8 +80,10 @@ class MarkerSelector extends Component {
 						{
 							locations && locations.map((location) => (
 								<li
+									id = { location.id }
 									key = { location.id }
 									className = { activeLocation && location.id === activeLocation ? 'active-location' : 'location' }
+									onClick = { (event) => this.props.onActiveLocationChange(event.target.id) }
 								>{ location.name }</li>
 							))
 						}
