@@ -40,6 +40,7 @@ class MapContainer extends Component {
   //updates map in state
   //calls create marker function
   createMap() {
+  	console.log('creating map');
   	const google = this.state.google;
     const mapElement = document.getElementById('map');
     const initialCenter = { lat: 20.7413449, lng: 73.9980244 };
@@ -51,17 +52,19 @@ class MapContainer extends Component {
       }
     );
     this.setState({ map }, () => {
-	    //crete infroWindow
-	    const infoWindow = new google.maps.InfoWindow( {
-	    	map : this.state.map,
-	    	content : 'elsoszia',
-	    });
+	    //crete infoWindow
+	    const infoWindow = new google.maps.InfoWindow();
+	    // const infoWindow = new google.maps.InfoWindow( {
+	    // 	map : this.state.map,
+	    // 	content : 'elsoszia',
+	    // });
 	    this.setState({ infoWindow });
     });
   }
 
 	//use locations and activeCity props to create markers
   createMarkers() {
+  	console.log('creating markers');
   	const google = this.state.google;
   	const map = this.state.map;
   	const locations = this.props.locations;
@@ -71,17 +74,19 @@ class MapContainer extends Component {
 	  	const bounds = new google.maps.LatLngBounds();
 	  	const markers =  locations.map((location) => {	
 		  		const marker = new google.maps.Marker({
-		  			map: map,
-		  			position: { 
+		  			map : map,
+		  			position : { 
 		  				lat : location.location.lat, 
 		  				lng : location.location.lng 
 		  			},
-		  			title: location.name, 
-		  			animation: google.maps.Animation.DROP,
-		  			city: location.location.city,
+		  			title : location.name, 
+		  			animation : google.maps.Animation.DROP,
+		  			city : location.location.city,
+		  			id : location.id,
 		  		});
 		  		marker.addListener('click', () => {
-		  			this.updateInfoWindow(marker)
+		  			this.updateInfoWindow(marker);
+		  			this.props.onActiveLocationChange(marker.id);
 		  		});
 		  		// marker.addListener('click', () => onMarkerClick(marker, largeInfowindow));
 		  		// marker.addListener('click', () => onMarkerClick(marker));
@@ -97,6 +102,7 @@ class MapContainer extends Component {
 	  	// this.setState({ markers });
   	}
  	}
+
 
  	updateMarkers() {
  		console.log('updating markers');
@@ -116,35 +122,29 @@ class MapContainer extends Component {
  		this.setState({ markers : updatedMarkers });
  	}
 
- 	updateInfoWindow(marker) {
- 		console.log('here we are');
- 		// const infoWindow = this.state.infoWindow;
- 		// console.log(infoWindow);
- 		// // let updatedInfoWindow = Object.assign({},this.state.infoWindow);
- 		// // let infoWindow = Object.assign({},this.state.infoWindow);
- 		// let updatedInfoWindow = {...infoWindow};
- 		// updatedInfoWindow.title = marker.title;
- 		// updatedInfoWindow.content = marker.title;
- 		// updatedInfoWindow.position = marker.position;
- 		// // updatedInfoWindow.map = this.state.map;
 
- 		// // infoWindow.title = 'ujszia';
- 		// // infoWindow.map = this.state.map;
- 		// // infoWindow.position = marker.position;
- 		// // const title = 'ujszia';
- 		// console.log(updatedInfoWindow);
- 		// // this.set
- 		// this.setState({ infoWindow : updatedInfoWindow }, () => {
- 		// // this.setState({ infoWindow }, () => {
- 		// // this.setState(prevState => (
- 		// // 		infoWindow : {
- 		// // 			...prevState.infoWindow,
- 		// // 			title : title,
- 		// // 		}
- 		// // ), () => {
+ 	updateActiveLocation() {
+
+ 	}
+
+ 	updateInfoWindow(marker) {
+ 		console.log('updating infoWindow');
+ 		console.log(marker);
+ 		const map = this.state.map;
+ 		const infoWindow = this.state.infoWindow;
+ 		console.log(infoWindow.marker);
+ 		console.log(infoWindow);
+ 		if(infoWindow.marker !== marker) {
+ 			console.log('uj marker needed');
+ 			infoWindow.marker = marker;
+	 		infoWindow.setContent(marker.title);
+	 		infoWindow.open(map, marker);
+ 		}
+ 		// infoWindow.position = marker.position;
+ 		this.setState({ infoWindow  });
+ 		// this.setState({ infoWindow  }, () => {
  		// 	console.log(this.state.infoWindow);
-	 	// 	// infoWindow.open(this.state.map, marker);
-	 	// 	infoWindow.open(this.state.map, marker.position);
+	 	// 	this.state.infoWindow.open(this.state.map, marker);
  		// });
  	}
 
@@ -164,7 +164,7 @@ class MapContainer extends Component {
 		if( this.props.locations !== prevProps.locations ) {
 			this.createMarkers();
 		} else if( this.props.activeCity !== prevProps.activeCity ) {
-			console.log('active City change');
+			// console.log('active City change');
 			this.updateMarkers();
 		}
 	}

@@ -9,6 +9,7 @@ class App extends Component {
     locations : null,
     cityList : null,
     activeCity : 'all',
+    activeLocation : null,
   }
 
 
@@ -34,9 +35,15 @@ class App extends Component {
   }
 
   updateActiveCity = (city) => {
-    console.log('in updateActiveCity');
-    console.log(city);
+    // console.log('in updateActiveCity');
+    // console.log(city);
     this.setState({ activeCity : city });
+  }
+
+  updateActiveLocation = (locationId) => {
+    console.log('in updateActiveLocation');
+    console.log(locationId);
+    this.setState({ activeLocation : locationId });
   }
 
   componentDidMount() {
@@ -52,11 +59,15 @@ class App extends Component {
           <MarkerSelector
             locations = { this.state.locations }
             activeCity = { this.state.activeCity }
+            activeLocation = {this.state.activeLocation }
             onActiveCityChange = { this.updateActiveCity }
+            onActiveLocationChange = { this.updateActiveLocation }
           />
           <MapContainer
             locations = { this.state.locations }
             activeCity = { this.state.activeCity }
+            activeLocation = {this.state.activeLocation }
+            onActiveLocationChange = { this.updateActiveLocation }
           />
         </div>
       </div>

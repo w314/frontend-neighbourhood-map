@@ -19,7 +19,7 @@ body {
   flex-direction: row;
 }
 
-.active-marker-name {
+.active-location {
   background-color: pink;
 }
 
