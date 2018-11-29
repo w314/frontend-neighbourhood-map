@@ -30,10 +30,18 @@ class MapContainer extends Component {
   //updates google in state 
   //calls create map function
   updateGoogle = () => {
+  	console.log('in updateGoogle');
     delete window.myFunction;
-    this.setState({google : window.google},() => {
-      this.createMap();
-    });
+    console.log(window.google);
+    if( window.google ){
+	    this.setState({google : window.google},() => {
+	      this.createMap();
+	    });
+	   } else { 	
+	   	console.log('Failed to include Google Maps API');
+	   	const mapFailureElement = document.getElementById('mapFailure');
+	   	mapFailureElement.innertext = "Failed to load Google Maps";
+	   }
   }
 
   //use google api to create map
@@ -67,7 +75,7 @@ class MapContainer extends Component {
 
 	//use locations and activeCity props to create markers
   createMarkers() {
-  	console.log('creating markers');
+  	// console.log('creating markers');
   	const google = this.state.google;
   	const map = this.state.map;
   	const locations = this.props.locations;
@@ -189,7 +197,10 @@ class MapContainer extends Component {
 
 	render () {
 		return(
-			<div id='map'></div>
+			<div className="MapContainer">
+				<div id='map'></div>
+				<div id="mapFailure" className="failure"></div>
+			</div>
 		)
 	}
 

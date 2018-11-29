@@ -31,6 +31,8 @@ class App extends Component {
       })
       .catch(function(error) {
         console.log(error);
+        const locationFetchFailureElement = document.getElementById("locationFetchFailure");
+        locationFetchFailureElement.innerText = "Failed to load information.Please check back later."
       });
   }
 
@@ -47,6 +49,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(document.online)
     this.getLocations();
   }
 
@@ -55,6 +58,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Frontend Neighbourhood Map</h1>
+        <div id="internetFailure" className="failure"></div>
         <div className="container">
           <MarkerSelector
             locations = { this.state.locations }
@@ -63,6 +67,7 @@ class App extends Component {
             onActiveCityChange = { this.updateActiveCity }
             onActiveLocationChange = { this.updateActiveLocation }
           />
+          <div id="locationFetchFailure" className="failure"></div>
           <MapContainer
             locations = { this.state.locations }
             activeCity = { this.state.activeCity }
