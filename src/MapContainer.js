@@ -17,12 +17,37 @@ class MapContainer extends Component {
   //sets updateGoogle as callback function
   getGoogleMaps() {
     // console.log(this.state);
+    window.googleMapCallback = this.updateGoogle.bind(this);
+    window.gm_authFailure = this.googleMapsAuthFailure.bind(this);
+    const script = document.createElement("script");
+    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
+    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=googleMapsCallback`;
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  googleMapsAuthFailure() {
+	   	console.log('Failed to include Google Maps API');
+	   	const mapFailureElement = document.getElementById('mapFailure');
+	   	console.log(mapFailureElement);
+	   	mapFailureElement.innerText = 'Failed to load Google Maps';  	
+	   	// alert('Failed to load google maps');
+	   	// this.setState({ google : null });
+  }
+
+  getGoogleMapsF() {
+  	// console.log('fetching google');
+    // console.log(this.state);
     window.myFunction = this.updateGoogle.bind(this);
     const script = document.createElement("script");
     const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=myFunction`;
-    script.async = true;
-    document.body.appendChild(script);
+    fetch(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`)
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+    // script.async = true;
+    // document.body.appendChild(script);
+
   }
 
 
@@ -40,7 +65,7 @@ class MapContainer extends Component {
 	   } else { 	
 	   	console.log('Failed to include Google Maps API');
 	   	const mapFailureElement = document.getElementById('mapFailure');
-	   	mapFailureElement.innertext = "Failed to load Google Maps";
+	   	mapFailureElement.innerText = "Failed to load Google Maps";
 	   }
   }
 
@@ -198,7 +223,14 @@ class MapContainer extends Component {
 	render () {
 		return(
 			<div className="MapContainer">
-				<div id='map'></div>
+				{
+				 this.state.google  && (
+				<div id='map'></div> )
+				}
+				{ 
+					!this.state.google && (
+						<p>Google Maps Loading...</p>)
+				}
 				<div id="mapFailure" className="failure"></div>
 			</div>
 		)

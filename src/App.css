@@ -26,3 +26,7 @@ body {
 .markers {
   width: 20%;
 }
+
+.MapContainer {
+  background-color: gray;
+}

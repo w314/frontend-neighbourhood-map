@@ -24,16 +24,16 @@ class App extends Component {
     let locations = null;
 
     fetch(`https://api.foursquare.com/v2/venues/search?client_id=${clientId}&client_secret=${clientSecret}&v=20180323&limit=${limit}&near=${myPlace}&query=${query}`)
-      .then((response) => response.json())
-      .then((response) => {
-        locations = response.response.venues;
-        this.setState({locations});
+    .then((response) => response.json())
+    .then((response) => {
+      locations = response.response.venues;
+      this.setState({locations});
       })
-      .catch(function(error) {
-        console.log(error);
-        const locationFetchFailureElement = document.getElementById("locationFetchFailure");
-        locationFetchFailureElement.innerText = "Failed to load information.Please check back later."
-      });
+    .catch(function(error) {
+      console.log(error);
+      const locationFetchFailureElement = document.getElementById("locationFetchFailure");
+      locationFetchFailureElement.innerText = 'Failed to load information.Please check back later.';
+    });
   }
 
   updateActiveCity = (city) => {
@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(document.online)
+    console.log(document.online);
     this.getLocations();
   }
 
