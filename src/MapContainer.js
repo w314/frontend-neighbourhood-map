@@ -17,11 +17,11 @@ class MapContainer extends Component {
   //sets updateGoogle as callback function
   getGoogleMaps() {
     // console.log(this.state);
-    window.googleMapCallback = this.updateGoogle.bind(this);
+    window.googleMapsCallback = this.updateGoogle.bind(this);
     window.gm_authFailure = this.googleMapsAuthFailure.bind(this);
     const script = document.createElement("script");
-    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
+    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
+    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=googleMapsCallback`;
     script.async = true;
     document.body.appendChild(script);
@@ -29,6 +29,7 @@ class MapContainer extends Component {
 
   googleMapsAuthFailure() {
 	   	console.log('Failed to include Google Maps API');
+	    delete window.gm_authFailure;
 	   	const mapFailureElement = document.getElementById('mapFailure');
 	   	console.log(mapFailureElement);
 	   	mapFailureElement.innerText = 'Failed to load Google Maps';  	
@@ -222,10 +223,10 @@ class MapContainer extends Component {
 
 	render () {
 		return(
-			<div className="MapContainer">
+			<div className="map-container">
 				{
 				 this.state.google  && (
-				<div id='map'></div> )
+				<div role="application" area-label="map showing selected parks" id='map'></div> )
 				}
 				{ 
 					!this.state.google && (

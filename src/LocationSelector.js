@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './App.css';
+import './LocationSelector.css';
 
 let cityList = [];
 
@@ -57,10 +59,12 @@ class LocationSelector extends Component {
 		}
 
 		return (
-			<div className="marker-selector">
-				<div className="options">
+			<div className="location-selector">
+				<div className="location-options">
+					<label for="chosen city">Choose your city:</label>
 					<select
 						id = "chosen-city"
+						className = "location-options"
 						defaultValue = "all"
 						onChange = { (event) => this.props.onActiveCityChange(event.target.value) }
 					>
@@ -76,13 +80,13 @@ class LocationSelector extends Component {
 					</select>
 				</div>
 				<div className="markers-shown">
-					<ul id="marker-list">
+					<ul id="location-list">
 						{
 							locations && locations.map((location) => (
 								<li
 									id = { location.id }
 									key = { location.id }
-									className = { activeLocation && location.id === activeLocation ? 'active-location' : 'location' }
+									className = { activeLocation && location.id === activeLocation ? 'active-location location' : 'location' }
 									onClick = { (event) => this.props.onActiveLocationChange(event.target.id) }
 								>{ location.name }</li>
 							))

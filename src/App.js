@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './MapContainer';
-import MarkerSelector from './MarkerSelector';
+import LocationSelector from './LocationSelector';
 
 class App extends Component {
 
@@ -57,24 +57,27 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Frontend Neighbourhood Map</h1>
-        <div id="internetFailure" className="failure"></div>
-        <div className="container">
-          <MarkerSelector
-            locations = { this.state.locations }
-            activeCity = { this.state.activeCity }
-            activeLocation = {this.state.activeLocation }
-            onActiveCityChange = { this.updateActiveCity }
-            onActiveLocationChange = { this.updateActiveLocation }
-          />
-          <div id="locationFetchFailure" className="failure"></div>
-          <MapContainer
-            locations = { this.state.locations }
-            activeCity = { this.state.activeCity }
-            activeLocation = {this.state.activeLocation }
-            onActiveLocationChange = { this.updateActiveLocation }
-          />
-        </div>
+        <header>
+          <h1 className="page-title uppercase full-width">Parks Around Plano, TX</h1>
+        </header>
+        <main>
+          <div className="container">
+            <LocationSelector
+              locations = { this.state.locations }
+              activeCity = { this.state.activeCity }
+              activeLocation = {this.state.activeLocation }
+              onActiveCityChange = { this.updateActiveCity }
+              onActiveLocationChange = { this.updateActiveLocation }
+            />
+            <div id="locationFetchFailure" className="failure"></div>
+            <MapContainer
+              locations = { this.state.locations }
+              activeCity = { this.state.activeCity }
+              activeLocation = {this.state.activeLocation }
+              onActiveLocationChange = { this.updateActiveLocation }
+            />
+            </div>
+        </main>
       </div>
     );        
   }
