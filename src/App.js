@@ -68,19 +68,21 @@ class App extends Component {
             activeLocation = {this.state.activeLocation }
             onActiveCityChange = { this.updateActiveCity }
           />
-          <MapContainer
-            locations = { this.state.locations }
-            activeCity = { this.state.activeCity }
-            activeLocation = {this.state.activeLocation }
-            onActiveLocationChange = { this.updateActiveLocation }
-          />
-          <div id="locationFetchFailure" className="failure"></div>
-          <LocationList 
-            locations = { this.state.locations }
-            activeCity = { this.state.activeCity }
-            activeLocation = {this.state.activeLocation }
-            onActiveLocationChange = { this.updateActiveLocation }
-          />
+          <div className="map-and-location-list-container">
+            <MapContainer
+              locations = { this.state.locations }
+              activeCity = { this.state.activeCity }
+              activeLocation = {this.state.activeLocation }
+              onActiveLocationChange = { this.updateActiveLocation }
+            />
+            <div id="locationFetchFailure" className="failure"></div>
+            <LocationList 
+              locations = { this.state.locations }
+              activeCity = { this.state.activeCity }
+              activeLocation = {this.state.activeLocation }
+              onActiveLocationChange = { this.updateActiveLocation }
+            />
+          </div>
         </main>
       </div>
     );        

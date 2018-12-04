@@ -41,15 +41,13 @@ video {
   box-sizing: border-box;
 }
 
-
-
-html,
-body {
-  height: 100%;
-  margin: 0;
+/*#root {
   padding: 0;
+  max-width: 60rem;
+  margin: auto;
+  font: 400 1rem arial, sans-serif;  
 }
-
+*/
 .full-width {
   width: 100%;
 }
@@ -72,7 +70,7 @@ body {
   margin: 0;
   padding: 1.2rem 0 1.2rem 0;
   background-color: var(--dark-gray);
-  font: 500 1.6rem arial, sans-serif;
+  font: 500 1.1rem arial, sans-serif;
   /*color: var(--light-gray);*/
   color: var(--light-blue);
 
@@ -103,4 +101,42 @@ body {
   width: 100%;
   min-height: 300px;
   min-width:  400px;
+}
+
+
+/*** MEDIA QUERIES ***/
+
+@media screen and ( min-width: 360px ) {
+
+  .page-title {
+    font: 500 1.2rem arial, sans-serif;    
+  }
+
+}
+
+
+@media screen and ( min-width: 420px ) {
+
+  .page-title {
+    font: 500 1.3rem arial, sans-serif;    
+  }
+  
+}
+
+
+@media screen and ( min-width: 600px ) {
+
+  .map-and-location-list-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #location-list {
+    width: 45%;
+  }
+
+  .page-title {
+    font: 500 1.5rem arial, sans-serif;    
+  }
+
 }
