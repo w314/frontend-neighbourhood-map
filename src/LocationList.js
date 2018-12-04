@@ -1,6 +1,5 @@
 import React from 'react';
-import './App.css';
-import './LocationSelector.css';
+// import './App.css';
 
 function LocationList(props) {
 

@@ -4,7 +4,7 @@
   --white: #fff;
   /* for location-name background */
   --light-blue: #aadaff;
-  /*for links*/
+  /*for page title background */
   --blue: #0275d8;
   /* for nav link on hover */
 
@@ -41,13 +41,6 @@ video {
   box-sizing: border-box;
 }
 
-/*#root {
-  padding: 0;
-  max-width: 60rem;
-  margin: auto;
-  font: 400 1rem arial, sans-serif;  
-}
-*/
 .full-width {
   width: 100%;
 }
@@ -64,6 +57,7 @@ video {
 
 }
 
+
 /*** HEADER ***/
 
 .page-title {
@@ -71,20 +65,62 @@ video {
   padding: 1.2rem 0 1.2rem 0;
   background-color: var(--dark-gray);
   font: 500 1.1rem arial, sans-serif;
-  /*color: var(--light-gray);*/
   color: var(--light-blue);
-
   text-align:center;
   letter-spacing: 0.125rem;
 }
 
 
+/*** MAIN ***/
 
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--light-gray);
+}
+
+
+/*** LOCATION SELECTOR ***/
+
+.location-selector {
+  margin: 0 auto 0 auto;
+  padding: 0.625rem 0 0.625rem 0;
+  width: 100%;
+  text-align: center;
+  font: 400 1.2rem arial, sans-serif;
+  border: 0.0625rem solid var(--dark-gray);
+  color: var(--white);
+  background-color: var(--blue);
+}
+
+#chosen-city {
+  margin: 0 0 0 0.3125rem;
+  font: 400 1.1rem arial, sans-serif;
+  border: 0;
+  color: var(--dark-blue);
+  background-color: var(--light-blue);
+  /*padding-left: 0.635rem;*/
+}
+
+
+/*** LOCATION LIST ***/
+
+#location-list {
+  margin: 0;
+  padding: 0;
+}
+
+.location {
+  margin: 0.3125rem;
+  padding: 0.3125rem;
+  list-style: none;
+  background-color: var(--light-blue);
+}
+
+.active-location {
+  color: var(--white);
+  background-color: var(--blue);
 }
 
 
