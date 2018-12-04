@@ -50,7 +50,6 @@ class LocationSelector extends Component {
 
 		// if(this.props.loaded) {
 		const activeCity = this.props.activeCity;
-		const activeLocation = this.props.activeLocation;
 		let locations = this.props.locations;
 		if (locations && activeCity !== 'all') {
 			locations = locations.filter((location) => location.location.city === activeCity);
