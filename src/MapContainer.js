@@ -174,22 +174,28 @@ class MapContainer extends Component {
 
 
  	updateInfoWindow(marker) {
- 		console.log('updating infoWindow');
- 		console.log(marker);
+ 		// console.log('updating infoWindow');
+ 		// console.log(marker);
  		const map = this.state.map;
  		const infoWindow = this.state.infoWindow;
- 		console.log(infoWindow.marker);
- 		console.log(infoWindow);
+ 		// console.log(infoWindow.marker);
+ 		// console.log(infoWindow);
+ 		// if the  new marker is different than the previous one
+ 		// update marker 
  		if(infoWindow.marker !== marker) {
- 			console.log('uj marker needed');
+ 			// console.log('infoWindow\'s marker needs to be updated');
  			infoWindow.marker = marker;
-	 		infoWindow.setContent(marker.title);
-	 		infoWindow.open(map, marker);
+ 			// only update title and open infoWindow
+ 			// if new marker is not null
+ 			if(marker) {
+		 		infoWindow.setContent(marker.title);
+		 		infoWindow.open(map, marker);
+ 			}
  		}
  		// infoWindow.position = marker.position;
  		this.setState({ infoWindow  });
  		// this.setState({ infoWindow  }, () => {
- 		// 	console.log(this.state.infoWindow);
+ 			// console.log(this.state.infoWindow.marker);
 	 	// 	this.state.infoWindow.open(this.state.map, marker);
  		// });
  	}
