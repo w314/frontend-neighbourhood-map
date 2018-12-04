@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './MapContainer';
 import LocationSelector from './LocationSelector';
+import LocationList from './LocationList';
 
 class App extends Component {
 
@@ -37,8 +38,8 @@ class App extends Component {
   }
 
   updateActiveCity = (city) => {
-    // console.log('in updateActiveCity');
-    // console.log(city);
+    console.log('in updateActiveCity');
+    console.log(city);
     this.setState({ activeCity : city });
   }
 
@@ -60,23 +61,26 @@ class App extends Component {
         <header>
           <h1 className="page-title uppercase full-width">Parks Around Plano, TX</h1>
         </header>
-        <main>
-          <div className="container">
-            <LocationSelector
-              locations = { this.state.locations }
-              activeCity = { this.state.activeCity }
-              activeLocation = {this.state.activeLocation }
-              onActiveCityChange = { this.updateActiveCity }
-              onActiveLocationChange = { this.updateActiveLocation }
-            />
-            <div id="locationFetchFailure" className="failure"></div>
-            <MapContainer
-              locations = { this.state.locations }
-              activeCity = { this.state.activeCity }
-              activeLocation = {this.state.activeLocation }
-              onActiveLocationChange = { this.updateActiveLocation }
-            />
-            </div>
+        <main className = "container">
+          <LocationSelector
+            locations = { this.state.locations }
+            activeCity = { this.state.activeCity }
+            activeLocation = {this.state.activeLocation }
+            onActiveCityChange = { this.updateActiveCity }
+          />
+          <MapContainer
+            locations = { this.state.locations }
+            activeCity = { this.state.activeCity }
+            activeLocation = {this.state.activeLocation }
+            onActiveLocationChange = { this.updateActiveLocation }
+          />
+          <div id="locationFetchFailure" className="failure"></div>
+          <LocationList 
+            locations = { this.state.locations }
+            activeCity = { this.state.activeCity }
+            activeLocation = {this.state.activeLocation }
+            onActiveLocationChange = { this.updateActiveLocation }
+          />
         </main>
       </div>
     );        

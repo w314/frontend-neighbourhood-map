@@ -85,7 +85,7 @@ body {
 .container {
   height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: var(--light-gray);
 }
 
@@ -93,7 +93,7 @@ body {
 /*** MAP ***/
 
 .map-container {
-  width: 65%;
+  width: 100%;
   background-color: var(--soft-gray);
   border: 0.0625rem solid var(--dark-gray);
 }

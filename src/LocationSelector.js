@@ -60,48 +60,26 @@ class LocationSelector extends Component {
 
 		return (
 			<div className="location-selector">
-				<div className="location-options">
-					<label>
-						Choose your city:
-						<select
-							id = "chosen-city"
-							defaultValue = "all"
-							onChange = { (event) => this.props.onActiveCityChange(event.target.value) }
-						>
-							<option value={ activeCity }>All</option>
-							{ 
-								cityList.map((city) => (
-									<option
-										key = { city } 
-										value = { city }
-									>{city}</option>
-								))
-							}
-						</select>
-					</label>
-				</div>
-				<div className="markers-shown">
-					<ul id="location-list">
-						{
-							locations && locations.map((location) => (
-								<li
-									id = { location.id }
-									key = { location.id }
-									className = { activeLocation && location.id === activeLocation ? 'active-location location' : 'location' }
-									onClick = { (event) => this.props.onActiveLocationChange(event.target.id) }
-								>{ location.name }</li>
+				<label>
+					Choose your city:
+					<select
+						id = "chosen-city"
+						defaultValue = "all"
+						onChange = { (event) => this.props.onActiveCityChange(event.target.value) }
+					>
+						<option value="all">All</option>
+						{ 
+							cityList.map((city) => (
+								<option
+									key = { city } 
+									value = { city }
+								>{city}</option>
 							))
 						}
-					</ul>
-				</div>
+					</select>
+				</label>
 			</div>
 		)
-	// } else {
-	// 	return (
-	// 		<div>Marker list will go here</div>
-	// 	)
-	// }
-
 	}
 }
 
