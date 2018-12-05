@@ -23,6 +23,7 @@
   /*for page title*/
   --orange-on-gray: #f18200;
   /*--orange-on-white: #bb5802;*/
+  --red: #f00;
 }
 
 
@@ -49,6 +50,10 @@ video {
   text-transform: uppercase;
 }
 
+.hidden {
+  display: none;
+}
+
 
 .App {
   max-width: 60rem;
@@ -68,6 +73,13 @@ video {
   color: var(--light-blue);
   text-align:center;
   letter-spacing: 0.125rem;
+}
+
+.failure {
+  color: var(--red);
+  padding: 1.2rem 0 1.2rem 0;
+  font: 800 1.1rem arial, sans-serif;
+  text-align:center;
 }
 
 

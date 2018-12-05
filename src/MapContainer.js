@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 
 class MapContainer extends Component {
 
-	// markers = [];
-
 	state = {
 		google : null,
 		map : null,
@@ -13,12 +11,14 @@ class MapContainer extends Component {
 	}
 
 
-  //adds script tag importing google maps api
-  //sets updateGoogle as callback function
+  // add script tag to import google maps api
   getGoogleMaps() {
-    // console.log(this.state);
+    // create a global handles for functions to use by google maps api
+	  // set updateGoogle() as callback function for google maps api
     window.googleMapsCallback = this.updateGoogle.bind(this);
+	  // set googleMapsAuthFalire() to call if there is authorization failure
     window.gm_authFailure = this.googleMapsAuthFailure.bind(this);
+    
     const script = document.createElement("script");
     const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
     // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
@@ -29,36 +29,21 @@ class MapContainer extends Component {
 
   googleMapsAuthFailure() {
 	   	console.log('Failed to include Google Maps API');
+	   	// clean up global variable
 	    delete window.gm_authFailure;
 	   	const mapFailureElement = document.getElementById('mapFailure');
-	   	console.log(mapFailureElement);
 	   	mapFailureElement.innerText = 'Failed to load Google Maps';  	
-	   	// alert('Failed to load google maps');
 	   	// this.setState({ google : null });
   }
 
-  getGoogleMapsF() {
-  	// console.log('fetching google');
-    // console.log(this.state);
-    window.myFunction = this.updateGoogle.bind(this);
-    const script = document.createElement("script");
-    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    fetch(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`)
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
-    // script.async = true;
-    // document.body.appendChild(script);
 
-  }
-
-
-  //callback function for google map api to call
-  //updates google in state 
-  //calls create map function
+  // callback function for google map api
+  // updates google in state 
+  // calls create map function
   updateGoogle = () => {
-  	console.log('in updateGoogle');
+  	// console.log('in updateGoogle');
     delete window.myFunction;
-    console.log(window.google);
+    // console.log(window.google);
     if( window.google ){
 	    this.setState({google : window.google},() => {
 	      this.createMap();
@@ -74,7 +59,7 @@ class MapContainer extends Component {
   //updates map in state
   //calls create marker function
   createMap() {
-  	console.log('creating map');
+  	// console.log('creating map');
   	const google = this.state.google;
     const mapElement = document.getElementById('map');
     const initialCenter = { lat: 20.7413449, lng: 73.9980244 };
