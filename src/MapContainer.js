@@ -20,8 +20,8 @@ class MapContainer extends Component {
     window.gm_authFailure = this.googleMapsAuthFailure.bind(this);
     
     const script = document.createElement("script");
-    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
+    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
+    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=googleMapsCallback`;
     script.async = true;
     document.body.appendChild(script);

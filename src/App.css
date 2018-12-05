@@ -19,11 +19,12 @@
   /*for header & footer background*/
   --dark-gray: #252831;
   /* for restuarant hours */
-  --soft-gray: #666;
+  /*--soft-gray: #666;*/
   /*for page title*/
   --orange-on-gray: #f18200;
   /*--orange-on-white: #bb5802;*/
   --red: #f00;
+  --border: 0.0625rem solid var(--dark-gray);
 }
 
 
@@ -101,7 +102,8 @@ video {
   width: 100%;
   text-align: center;
   font: 400 1.2rem arial, sans-serif;
-  border: 0.0625rem solid var(--dark-gray);
+  /*border: 0.0625rem solid var(--dark-gray);*/
+  border: var(--border);
   color: var(--white);
   background-color: var(--blue);
 }
@@ -113,6 +115,11 @@ video {
   color: var(--dark-blue);
   background-color: var(--light-blue);
   /*padding-left: 0.635rem;*/
+  border: var(--border);
+}
+
+#location-fetch-failure {
+  border: var(--border);
 }
 
 
@@ -121,6 +128,7 @@ video {
 #location-list {
   margin: 0;
   padding: 0;
+  border: var(--border);
 }
 
 .location {

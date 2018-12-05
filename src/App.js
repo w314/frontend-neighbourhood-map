@@ -16,8 +16,8 @@ class App extends Component {
 
   //fetching locations from foursquare api 
   getLocations = () => {
-    // const clientId = 'I3YREXLTGMASOVK5ZPWCM0GCQLJ3H1LND3U0WVDB4JNCFN13';
-    const clientId = 'I3YREXLTGMASOVK5ZPWCM0GCQLJ3H1LND3U0WVDB4JNCFN1';
+    const clientId = 'I3YREXLTGMASOVK5ZPWCM0GCQLJ3H1LND3U0WVDB4JNCFN13';
+    // const clientId = 'I3YREXLTGMASOVK5ZPWCM0GCQLJ3H1LND3U0WVDB4JNCFN1';
     const clientSecret = '4W4E3FMMWPNYQYVQR1EJXFNNOBQL5BLMAMG11DMIDN1PNQGM';
     const query = 'park';
     const limit = 20;
@@ -40,7 +40,7 @@ class App extends Component {
     })
     .catch(function(error) {
       console.log(error);
-      const failureMessagesElement = document.getElementById("failure-messages");
+      const failureMessagesElement = document.getElementById("location-fetch-failure");
       const failureMessage = failureMessagesElement.innerText;
       failureMessagesElement.innerText = `${ failureMessage } Failed to load location information from FourSquare. Please check back later.`;
       failureMessagesElement.classList.remove('hidden');
@@ -70,7 +70,7 @@ class App extends Component {
       <div className="App">
         <header>
           <h1 className="page-title uppercase full-width">Parks Around Plano, TX</h1>
-          <div id="failure-messages" className="failure hidden"></div>
+          <div id="location-fetch-failure" className="failure hidden"></div>
         </header>
         <main className = "container">
           <LocationSelector
