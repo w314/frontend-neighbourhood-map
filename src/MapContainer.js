@@ -20,8 +20,8 @@ class MapContainer extends Component {
     window.gm_authFailure = this.googleMapsAuthFailure.bind(this);
     
     const script = document.createElement("script");
-    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
-    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
+    // const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYEY';
+    const apiKey = 'AIzaSyA-_D9jXkGNVDE8V7je-c09r2ctznBWYE';
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=googleMapsCallback`;
     script.async = true;
     document.body.appendChild(script);
@@ -31,8 +31,14 @@ class MapContainer extends Component {
 	   	console.log('Failed to include Google Maps API');
 	   	// clean up global variable
 	    delete window.gm_authFailure;
-	   	const mapFailureElement = document.getElementById('mapFailure');
+	    //display failure message
+	   	const mapFailureElement = document.getElementById('map-failure');
+	   	// const mapContainerElement = document.getElementsByClassName('map-container')[0];
+	   	const mapElement = document.getElementById('map');
+	   	// failureMessagesElement.innerText = 'Failed to load Google Maps';  	
 	   	mapFailureElement.innerText = 'Failed to load Google Maps';  	
+	   	mapFailureElement.classList.remove('hidden');
+	   	mapElement.classList.add('hidden');
 	   	// this.setState({ google : null });
   }
 
@@ -215,6 +221,7 @@ class MapContainer extends Component {
 	render () {
 		return(
 			<div className="map-container">
+				<div id="map-failure" className="failure hidden"></div>
 				{
 				 this.state.google  && (
 				<div role="application" area-label="map showing selected parks" id='map'></div> )
@@ -223,7 +230,6 @@ class MapContainer extends Component {
 					!this.state.google && (
 						<p>Google Maps Loading...</p>)
 				}
-				<div id="mapFailure" className="failure"></div>
 			</div>
 		)
 	}

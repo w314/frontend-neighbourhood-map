@@ -140,7 +140,9 @@ video {
 
 .map-container {
   width: 100%;
-  background-color: var(--soft-gray);
+  color: var(--red);
+  text-align: center;
+  background-color: var(--light-gray);
   border: 0.0625rem solid var(--dark-gray);
 }
 
