@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 
-let cityList = [];
 
 class LocationSelector extends Component {
 
+	state = {
+		cityList: null,
+	}
 
 	createCityList() {
-	  // let cityList = [];
+
+		let cityList = [];
+
 	  if(this.props.locations) {
-		  // console.log(this.props);
 		  const locations = this.props.locations;
 
 		  //create a list of the different cities involved
@@ -20,17 +23,8 @@ class LocationSelector extends Component {
 		  });
 
 		  cityList.sort();
-		  this.setState({ cityList }, () => {
-		    // console.log('cityList set');
-		    // console.log(this.state);
-		    // const state = this.state;
-		    // this.setState({state}, () => {
-		    	// console.log('state reset');
-		    	// this.props.onActiveCityChange('all');
-		    // });
-		  });
+		  this.setState({ cityList });
 		}
-	  // console.log(cityList);
 	}
 
 
@@ -39,34 +33,31 @@ class LocationSelector extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.locations !== prevProps.locations) {
+		// create list of cities from location information received
+		if(this.props.locations !== prevProps.locations) {
 			this.createCityList();
 		}
+		// add focus to the city select element 
+		const chosenCityElement = document.getElementById('chosen-city');
+		chosenCityElement.focus();
 	}
 
-	render() {
-		// console.log('rendering MarkerSelector');
-		// console.log(this.props);
 
-		// if(this.props.loaded) {
-		const activeCity = this.props.activeCity;
-		let locations = this.props.locations;
-		if (locations && activeCity !== 'all') {
-			locations = locations.filter((location) => location.location.city === activeCity);
-		}
+	render() {
 
 		return (
-			<div className="location-selector">
+			<div className='location-selector'>
 				<label>
 					Choose your city:
 					<select
-						id = "chosen-city"
-						defaultValue = "all"
+						id = 'chosen-city'
+						defaultValue = 'all'
+						area-label = 'city filter options'
 						onChange = { (event) => this.props.onActiveCityChange(event.target.value) }
 					>
 						<option value="all">All</option>
 						{ 
-							cityList.map((city) => (
+							this.state.cityList && this.state.cityList.map((city) => (
 								<option
 									key = { city } 
 									value = { city }
